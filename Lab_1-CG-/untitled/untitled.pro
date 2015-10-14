@@ -8,6 +8,8 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+CONFIG += c++11
+
 TARGET = untitled
 TEMPLATE = app
 
@@ -16,12 +18,14 @@ SOURCES += main.cpp\
         table.cpp \
     team.cpp \
     mydelegate.cpp \
-    input.cpp
+    input.cpp \
+    undoredotable.cpp
 
 HEADERS  += table.h \
     team.h \
     mydelegate.h \
-    input.h
+    input.h \
+    undoredotable.h
 
 FORMS    += table.ui \
     input.ui

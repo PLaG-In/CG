@@ -16,7 +16,7 @@ public:
     explicit input(QWidget *parent = 0);
     ~input();
 
-    Team NewTeamRow;
+    Team newTeamRow;
 private slots:
     void on_buttonBox_accepted();
 

@@ -3,7 +3,7 @@
 
 input::input(QWidget *parent) :
     QDialog(parent),
-    NewTeamRow(Team("", 0, 0, 0, 0)),
+    newTeamRow(Team()),
     ui(new Ui::input)
 {
     ui->setupUi(this);
@@ -18,15 +18,10 @@ input::~input()
 
 void input::on_buttonBox_accepted()
 {
-    if (!ui->teamEdit->text().isEmpty()
-            && ui->winBox->value() >= 0
-            && ui->loseBox->value() >= 0
-            && ui->totalBox->value() >= 0
-            && ui->ratingBox->value() > 0)
+    if (!ui->teamEdit->text().isEmpty() && ui->ratingBox->value() > 0)
     {
-            NewTeamRow = Team(ui->teamEdit->text(), ui->winBox->value(),
-                           ui->loseBox->value(), ui->totalBox->value(),
-                           ui->ratingBox->value());
+            newTeamRow = Team(ui->teamEdit->text(), ui->ratingBox->value());
+            accept();
     }
 }
 

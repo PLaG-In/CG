@@ -1,79 +1,53 @@
 #include "table.h"
 #include "ui_table.h"
-#include "qdebug.h"
-#include <QAbstractItemModel>
 
 table::table(QWidget *parent) :
     QMainWindow(parent),
+   // m_stack(new QUndoStack(this)),
     ui(new Ui::table)
 {
     ui->setupUi(this);
     ui->tableView->move(0, 0);
-    model = new TeamModel(this);
-    ui->tableView->setModel(model);
+    m_model = new TeamModel(ui->actionSave, this);
+    ui->tableView->setModel(m_model);
+    ui->actionSave->setEnabled(false);
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
+    m_isSomethingChanged = false;
+   // QObject::connect(m_model, SIGNAL(SomethingChanged()), this, SLOT(on_SomethingChanged()));
 }
 
 table::~table()
 {
     delete ui;
-    if (model)
+    if (m_model)
     {
-        delete model;
+        delete m_model;
     }
-}
-
-void table::on_actionInsert_row_triggered()
-{
-    input dlg;
-
-   // model->append(Team("",0,0,0,0));
-    dlg.setModal(true);
-    if (dlg.exec() == QDialog::Accepted)
+    /*if (m_stack)
     {
-        model->append(dlg.NewTeamRow);
-    }
+        delete m_stack;
+    }*/
 }
 
 void table::resizeEvent(QResizeEvent*)
 {
     ui->tableView->resize(size());
-    ui->tableView->setColumnWidth(0, ui->tableView->width() / 5);
+    ui->tableView->setColumnWidth(0, ui->tableView->width() / 2);
+}
+
+void table::on_actionInsert_row_triggered()
+{
+    input dlg;
+    dlg.setModal(true);
+    if (dlg.exec() == dlg.Accepted)
+    {
+        m_model->append(dlg.newTeamRow);
+    }
 }
 
 void table::on_actionDelete_row_triggered()
 {
-    /*QDialog dialog(this);
-    // Use a layout allowing to have a label next to each field
-    QFormLayout form(&dialog);
-
-    // Add some text above the fields
-    form.addRow(new QLabel("The question ?"));
-
-    // Add the lineEdits with their respective labels
-    QList<QLineEdit *> fields;
-    for(int i = 0; i < 4; ++i) {
-        QLineEdit *lineEdit = new QLineEdit(&dialog);
-        QString label = QString("Value %1").arg(i + 1);
-        form.addRow(label, lineEdit);
-
-        fields << lineEdit;
-    }
-
-    // Add some standard buttons (Cancel/Ok) at the bottom of the dialog
-    QDialogButtonBox buttonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
-                               Qt::Horizontal, &dialog);
-    form.addRow(&buttonBox);
-    QObject::connect(&buttonBox, SIGNAL(accepted()), &dialog, SLOT(accept()));
-    QObject::connect(&buttonBox, SIGNAL(rejected()), &dialog, SLOT(reject()));
-
-    // Show the dialog as modal
-    if (dialog.exec() == QDialog::Accepted) {
-        // If the user didn't dismiss the dialog, do something with the fields
-        foreach(QLineEdit * lineEdit, fields) {
-            qDebug() << lineEdit->text();
-        }
-    }*/
+    m_model->RemoveLast();
 }
 
 void table::on_actionOpen_triggered()
@@ -124,6 +98,12 @@ void table::on_actionNew_triggered()
 
 }
 
+void table::on_SomethingChanged()
+{
+    m_isSomethingChanged = true;
+    ui->actionSave->setEnabled(true);
+}
+
 void table::on_actionAbout_Application_triggered()
 {
     QMessageBox box;
@@ -132,3 +112,4 @@ void table::on_actionAbout_Application_triggered()
     box.setInformativeText("Copyright © 2015 Alitov Vladimir");
     box.exec();
 }
+

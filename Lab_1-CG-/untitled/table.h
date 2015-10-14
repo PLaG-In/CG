@@ -1,12 +1,12 @@
 #ifndef TABLE_H
 #define TABLE_H
 
+#include <QTextStream>
 #include <QMainWindow>
 #include <QTableView>
 #include <QItemDelegate>
 #include <QAbstractItemModel>
 #include <QFile>
-#include <QTextStream>
 #include <QFileDialog>
 #include <QTextCodec>
 #include <QFormLayout>
@@ -14,6 +14,7 @@
 #include <QDialogButtonBox>
 #include <QComboBox>
 #include <QJsonDocument>
+#include <QJsonArray>
 #include <QJsonObject>
 #include "mydelegate.h"
 #include "input.h"
@@ -21,6 +22,7 @@
 namespace Ui {
 class table;
 }
+class TeamModel;
 
 class table : public QMainWindow
 {
@@ -29,6 +31,9 @@ class table : public QMainWindow
 public:
     explicit table(QWidget *parent = 0);
     ~table();
+
+public slots:
+     void on_SomethingChanged();
 
 private slots:
     void on_actionInsert_row_triggered();
@@ -48,8 +53,9 @@ protected:
 
 private:
     Ui::table *ui;
-    TeamModel *model;
-    bool wasChanged;
+    TeamModel *m_model;
+    bool m_isSomethingChanged;
+    //QUndoStack *m_stack;
 
 };
 

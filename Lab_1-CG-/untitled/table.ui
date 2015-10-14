@@ -49,6 +49,7 @@
     </property>
     <addaction name="actionInsert_row"/>
     <addaction name="actionDelete_row"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -102,10 +103,16 @@
    <property name="text">
     <string>Insert row</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
   </action>
   <action name="actionDelete_row">
    <property name="text">
     <string>Delete row</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
    </property>
   </action>
   <action name="actionAbout_Application">
