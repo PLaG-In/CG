@@ -2,7 +2,7 @@
 #define MYDELEGATE_H
 
 #include <QAbstractTableModel>
-#include <QList>
+#include <QVector>
 #include <QAction>
 #include <QUndoStack>
 #include "team.h"
@@ -18,7 +18,6 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     void append(const Team &team);
     Qt::ItemFlags flags(const QModelIndex &index) const override;
-    QList<Team> GetData() const;
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
     void InsertLast(const Team &team);
     void RemoveLast();
@@ -26,7 +25,7 @@ public:
     void clear();
     bool smthChanged;
 private:
-    QList<Team> m_data;
+    QVector<Team> m_data;
     QAction *m_save;
    // QUndoStack *m_stack;
 };

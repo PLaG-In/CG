@@ -82,11 +82,6 @@ bool TeamModel::setData(const QModelIndex &index, const QVariant &value, int rol
     return true;
 }
 
-QList<Team> TeamModel::GetData() const
-{
-    return m_data;
-}
-
 void TeamModel::InsertLast(const Team &team)
 {
     beginInsertRows(QModelIndex(), m_data.count(), m_data.count());
