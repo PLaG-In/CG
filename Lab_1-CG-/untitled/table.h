@@ -32,9 +32,6 @@ public:
     explicit table(QWidget *parent = 0);
     ~table();
 
-public slots:
-     void on_SomethingChanged();
-
 private slots:
     void on_actionInsert_row_triggered();
 
@@ -48,14 +45,22 @@ private slots:
 
     void on_actionAbout_Application_triggered();
 
+    void on_actionSave_as_triggered();
+
 protected:
     virtual void resizeEvent(QResizeEvent *);
 
 private:
+    void New();
+    void Open();
+    void Save(QString filePath = "");
+    void SaveAs();
+    bool SaveRequest();
+    void closeEvent(QCloseEvent *);
+
     Ui::table *ui;
     TeamModel *m_model;
-    bool m_isSomethingChanged;
-    //QUndoStack *m_stack;
+    QString m_fileName;
 
 };
 

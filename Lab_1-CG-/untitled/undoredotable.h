@@ -1,29 +1,15 @@
-/*#ifndef UNDOREDO_H
+#ifndef UNDOREDOTABLE_H
 #define UNDOREDOTABLE_H
 
-#include <QUndoCommand>
-#include <QTableView>
-#include "mydelegate.h"
-#include "team.h"
 
-class UndoRedoTable : public QUndoCommand
+class UndoRedoTable
 {
 public:
-    UndoRedoTable(TeamModel *model, unsigned int index, Team team, bool wasInsertAct);
+    UndoRedoTable();
 
-signals:
+//signals:
 
-public slots:
-    void redo();
-    void undo();
-
-private:
-    TeamModel *m_model;
-    bool m_wasInsertAct;
-    Team m_team;
-    Team m_prevTeam;
-    unsigned int m_index;
+//public slots:
 };
 
 #endif // UNDOREDOTABLE_H
-*/

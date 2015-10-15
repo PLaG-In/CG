@@ -1,7 +1,7 @@
 #include "mydelegate.h"
 
 TeamModel::TeamModel(QAction *save, QObject *parent) :
-    QAbstractTableModel(parent), smthChanged(false), m_save(save)/* m_stack(stack),*/
+    QAbstractTableModel(parent), smthChanged(false), m_save(save)
 {
 }
 
@@ -43,7 +43,6 @@ QVariant TeamModel::headerData(int section, Qt::Orientation orientation, int rol
 
 void TeamModel::append(const Team &team)
 {
-   // m_stack->push(new UndoRedo(this, 0, team, true));
     beginInsertRows(QModelIndex(), m_data.count(), m_data.count());
     m_data.append(team);
     endInsertRows();
@@ -80,7 +79,6 @@ bool TeamModel::setData(const QModelIndex &index, const QVariant &value, int rol
 
     m_data.replace(index.row(), newTeam);
     emit layoutChanged();
-   // m_stack->push(new UndoRedo(this, index.row(), newTeam, false));
     return true;
 }
 
