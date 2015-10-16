@@ -106,6 +106,7 @@ void table::Save(QString filePath)
             f.write(doc.fromVariant(data).toJson());
             f.close();
         }
+        m_fileName = filePath;
         m_model->smthChanged = false;
         ui->actionSave->setEnabled(false);
     }
